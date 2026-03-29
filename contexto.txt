@@ -1,3 +1,2 @@
-LEXINEX es una plataforma que conecta clientes con abogados especializados.
-Permite comparar profesionales, ver precios transparentes y hacer seguimiento en tiempo real.
+LEXINEX es una plataforma resuelve dudas jurídicas
 Está enfocada en derecho chileno.
