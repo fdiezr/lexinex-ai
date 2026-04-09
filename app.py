@@ -20,11 +20,15 @@ def home():
 
             <p>Asistente jurídico con inteligencia artificial.</p>
 
-            <button onclick="suscribirse()" style="padding:10px; background:black; color:white;">
-                Suscribirme (acceso ilimitado mensual)
+            <button onclick="donar()" style="padding:10px; background:black; color:white;">
+                Apoyar proyecto ❤️
             </button>
 
-            <br><br>
+            <p style="font-size:14px; margin-top:10px;">
+                Este servicio es gratuito. Si te ayudó, puedes apoyar su desarrollo con una donación.
+            </p>
+
+            <br>
 
             <input id="pregunta" style="width:100%; padding:10px;" placeholder="Escribe tu pregunta jurídica..." />
             
@@ -42,7 +46,7 @@ def home():
                     document.getElementById("respuesta").innerText = data.respuesta || data.error;
                 }
 
-                function suscribirse() {
+                function donar() {
                     window.location.href = "https://link.mercadopago.cl/lexinex";
                 }
             </script>
@@ -64,7 +68,7 @@ def preguntar(q: str):
 
         texto = respuesta.choices[0].message.content
 
-        texto_final = texto + "\\n\\n---\\nSi tienes dudas adicionales, puedes escribir a fdiezr@udd.cl"
+        texto_final = texto + "\\n\\n---\\nSi esta respuesta te fue útil, puedes apoyar el proyecto aquí: https://link.mercadopago.cl/lexinex\\nContacto: fdiezr@udd.cl"
 
         return {"respuesta": texto_final}
 
