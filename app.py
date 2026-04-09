@@ -7,6 +7,7 @@ app = FastAPI()
 
 client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
 
+# 🌐 Interfaz web
 @app.get("/", response_class=HTMLResponse)
 def home():
     return """
@@ -18,7 +19,7 @@ def home():
             <h2>Lexinex AI ⚖️</h2>
             <input id="pregunta" style="width:100%; padding:10px;" placeholder="Escribe tu pregunta jurídica..." />
             <button onclick="enviar()" style="margin-top:10px; padding:10px;">Preguntar</button>
-            <pre id="respuesta" style="margin-top:20px;"></pre>
+            <pre id="respuesta" style="margin-top:20px; white-space: pre-wrap;"></pre>
 
             <script>
                 async function enviar() {
@@ -32,6 +33,7 @@ def home():
     </html>
     """
 
+# 🤖 Endpoint de preguntas
 @app.get("/pregunta")
 def preguntar(q: str):
     try:
@@ -43,7 +45,12 @@ def preguntar(q: str):
             ]
         )
 
-        return {"respuesta": respuesta.choices[0].message.content}
+        texto = respuesta.choices[0].message.content
+
+        # 📩 Mensaje final fijo
+        texto_final = texto + "\n\n---\nSi tienes dudas adicionales, puedes escribir a fdiezr@udd.cl"
+
+        return {"respuesta": texto_final}
 
     except Exception as e:
         return {"error": str(e)}
