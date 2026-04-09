@@ -7,7 +7,6 @@ app = FastAPI()
 
 client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
 
-# 🌐 Interfaz web
 @app.get("/", response_class=HTMLResponse)
 def home():
     return """
@@ -15,10 +14,24 @@ def home():
         <head>
             <title>Lexinex AI</title>
         </head>
-        <body style="font-family: Arial; max-width: 600px; margin: auto; padding-top: 50px;">
+        <body style="font-family: Arial; max-width: 700px; margin: auto; padding-top: 40px;">
+            
             <h2>Lexinex AI ⚖️</h2>
+
+            <p>Asistente jurídico con inteligencia artificial.</p>
+
+            <button onclick="suscribirse()" style="padding:10px; background:black; color:white;">
+                Suscribirme (acceso ilimitado mensual)
+            </button>
+
+            <br><br>
+
             <input id="pregunta" style="width:100%; padding:10px;" placeholder="Escribe tu pregunta jurídica..." />
-            <button onclick="enviar()" style="margin-top:10px; padding:10px;">Preguntar</button>
+            
+            <button onclick="enviar()" style="margin-top:10px; padding:10px;">
+                Preguntar
+            </button>
+
             <pre id="respuesta" style="margin-top:20px; white-space: pre-wrap;"></pre>
 
             <script>
@@ -28,12 +41,16 @@ def home():
                     const data = await res.json();
                     document.getElementById("respuesta").innerText = data.respuesta || data.error;
                 }
+
+                function suscribirse() {
+                    window.location.href = "https://link.mercadopago.cl/lexinex";
+                }
             </script>
+
         </body>
     </html>
     """
 
-# 🤖 Endpoint de preguntas
 @app.get("/pregunta")
 def preguntar(q: str):
     try:
@@ -47,8 +64,7 @@ def preguntar(q: str):
 
         texto = respuesta.choices[0].message.content
 
-        # 📩 Mensaje final fijo
-        texto_final = texto + "\n\n---\nSi tienes dudas adicionales, puedes escribir a fdiezr@udd.cl"
+        texto_final = texto + "\\n\\n---\\nSi tienes dudas adicionales, puedes escribir a fdiezr@udd.cl"
 
         return {"respuesta": texto_final}
 
